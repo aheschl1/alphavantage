@@ -56,6 +56,7 @@ pub(crate) mod parser {
     pub(crate) fn parse(function: &Function, reader: impl Read) -> Result<TimeSeries, Error> {
         let helper = match function {
             Function::DailyAdjusted | Function::WeeklyAdjusted | Function::MonthlyAdjusted => {
+                // Print the entire reader content
                 let helper: TimeSeriesHelper<EntryHelperAdjusted> = serde_json::from_reader(reader)?;
                 TimeSeriesHelperEnum::Adjusted(helper)
             }

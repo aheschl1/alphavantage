@@ -206,7 +206,7 @@ impl Client {
         Ok(result)
     }
 
-    async fn get_time_series(
+    async fn get_time_series( 
         &self,
         function: &time_series::Function,
         symbol: &str,
