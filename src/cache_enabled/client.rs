@@ -214,7 +214,7 @@ impl Client {
     }
 
     /// Retrieve a list of ticker symbols that match the specified `query`.
-    #[cache_async(cache_root = "~/.cache/alphavantage/get_tickers/{query}", invalidate_rate = 86400)]
+    #[cache_async(cache_root = "~/.cache/alphavantage/get_tickers/{query}", invalidate_rate = 172800)]
     pub async fn get_tickers(
         &self,
         query: &str,
