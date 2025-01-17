@@ -25,7 +25,7 @@ impl Client {
     }
 
     /// Retrieve intraday time series for the specified `symbol` updated in realtime (latest 100 data points).
-    #[cache_async(cache_root = "~/.cache/alphavantage/get_time_series_intraday/{symbol}_{interval:?}", invalidate_rate = 1800)]
+    #[cache_async(cache_root = "~/.cache/alphavantage/get_time_series_intraday/{symbol}_{interval:?}", invalidate_rate = 86400)]
     pub async fn get_time_series_intraday(
         &self,
         symbol: &str,
@@ -40,7 +40,7 @@ impl Client {
     }
 
     /// Retrieve intraday time series for the specified `symbol` updated in realtime (full data set).
-    #[cache_async(cache_root = "~/.cache/alphavantage/get_time_series_intraday_full/{symbol}_{interval:?}", invalidate_rate = 1800)]
+    #[cache_async(cache_root = "~/.cache/alphavantage/get_time_series_intraday_full/{symbol}_{interval:?}", invalidate_rate = 86400)]
     pub async fn get_time_series_intraday_full(
         &self,
         symbol: &str,

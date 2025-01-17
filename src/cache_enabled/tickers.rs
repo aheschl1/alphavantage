@@ -8,14 +8,14 @@ pub struct SearchResults {
     /// The query that was searched.
     query: Option<String>,
     /// The list of matches, sorted by highest match score to lowest.
-    entries: Vec<Entry>,
+    pub entries: Vec<Entry>,
 } 
 
 /// Represents a set of values for a ticker
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Entry {
     /// Symbol.
-    symbol: String,
+    pub symbol: String,
     /// Name.
     name: String,
     /// Type.
