@@ -121,6 +121,15 @@ impl Client {
         self.get_time_series(&function, symbol, time_series::OutputSize::Full)
     }
 
+    /// Retrieve the dividend data for the specified `symbol`.
+    pub fn get_dividend_data(&self, symbol: &str) -> Result<DividendResults, Error> {
+        let function = "DIVIDENDS";
+        let params = vec![("symbol", symbol)];
+        let response = self.api_call(function, &params)?;
+        let result = corprate_actions::parser::parse(response)?;
+        Ok(result)
+    }
+
     /// Retrieve the exchange rate from the currency specified by `from_currency_code` to the
     /// currency specified by `to_currency_code`.
     pub fn get_exchange_rate(

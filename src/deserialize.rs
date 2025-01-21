@@ -19,6 +19,13 @@ where
     T::from_str(&s).map_err(de::Error::custom)
 }
 
+pub(crate) fn float_to_string<S>(value: &f64, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: serde::Serializer,
+{
+    serializer.serialize_str(&value.to_string())
+}
+
 pub(crate) fn parse_date(value: &str, time_zone: Tz) -> Result<DateTime<Tz>, Error> {
     if value.contains(':') {
         let datetime = NaiveDateTime::parse_from_str(value, DATETIME_FORMAT)?;

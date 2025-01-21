@@ -1,4 +1,5 @@
 use crate::api::{APIRequest, APIRequestBuilder};
+use crate::corprate_actions::{self, DividendResults};
 use crate::error::Error;
 use crate::time_series::{Function, IntradayInterval, OutputSize};
 use crate::cache_enabled::tickers;
@@ -226,6 +227,18 @@ impl Client {
         let result = tickers::parser::parse(Some(query.to_string()), response)?;
         Ok(result)
     }
+
+    /// Retrieve the dividend data for the specified `symbol`.
+    #[cache_async(cache_root = "~/.cache/alphavantage/get_dividend_data/{symbol}", invalidate_rate = 172800)]
+    pub async fn get_dividend_data(&self, symbol: &str) -> Result<DividendResults, Error> {
+        let function = "DIVIDENDS";
+        let params = vec![("symbol", symbol)];
+        let request = self.builder.create(function, &params);
+        let response = self.api_call(request).await?;
+        let result = corprate_actions::parser::parse(response)?;
+        Ok(result)
+    }
+    
 
     async fn get_time_series(
         &self,

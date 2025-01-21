@@ -16,6 +16,7 @@ mod api;
 mod client;
 mod deserialize;
 pub mod error;
+pub mod corprate_actions;
 
 #[cfg(feature = "blocking")]
 pub mod blocking;

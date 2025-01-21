@@ -1,4 +1,5 @@
 use crate::api::{APIRequest, APIRequestBuilder};
+use crate::corprate_actions::{self, DividendResults};
 use crate::error::Error;
 use crate::time_series;
 use crate::{exchange_rate, tickers};
@@ -176,6 +177,16 @@ impl Client {
             time_series::OutputSize::Full,
         )
         .await
+    }
+
+    /// Retrieve the dividend data for the specified `symbol`.
+    pub async fn get_dividend_data(&self, symbol: &str) -> Result<DividendResults, Error> {
+        let function = "DIVIDENDS";
+        let params = vec![("symbol", symbol)];
+        let request = self.builder.create(function, &params);
+        let response = self.api_call(request).await?;
+        let result = corprate_actions::parser::parse(response)?;
+        Ok(result)
     }
 
     /// Retrieve the exchange rate from the currency specified by `from_currency_code` to the

@@ -23,11 +23,11 @@ pub struct Entry {
     /// Region.
     region: String,
     /// Market open time.
-    market_open: NaiveTime,
+    pub market_open: NaiveTime,
     /// Market close time.
-    market_close: NaiveTime,
+    pub market_close: NaiveTime,
     /// Timezone.
-    timezone: String,
+    pub timezone: String,
     /// Currency.
     currency: String,
     /// Match score.
